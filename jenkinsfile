@@ -15,6 +15,7 @@ pipeline {
         }
         stage('Build') {
             steps {
+                sh 'npm install'
                 sh 'npm ci' // this is a comment
             }
         }
@@ -25,7 +26,6 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'npm install'
                 sh 'npm install forever -g'
                 sh 'forever start src/index.js'
             }
