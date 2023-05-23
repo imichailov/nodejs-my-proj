@@ -42,10 +42,12 @@ pipeline {
             }
         }
 
-	stage('Docker login'){
-           steps {
-               sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-	   }
+stage('Docker login') {
+    steps {
+        withCredentials([string(my_dockerhub_creds: 'dockerhub-credentials', variable: 'DOCKERHUB_CREDENTIALS_PSW'),
+                         string(my_dockerhub_creds: 'dockerhub-credentials', variable: 'DOCKERHUB_CREDENTIALS_USR')]) {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        }
         }
 
         stage('Docker build and tag'){
