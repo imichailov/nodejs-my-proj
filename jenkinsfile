@@ -4,8 +4,8 @@ pipeline {
     }
 
     tools {
-  nodejs 'nodejs'
-}
+        nodejs 'nodejs'
+    }
 
     stages {
         stage ('Clone Repo') {
@@ -22,9 +22,12 @@ pipeline {
             steps {
                 sh 'npm test'
             }
-        stage('Deploy') {
-           steps {
-                sh 'forever start src/index.js'
+        }
+    } // Added closing curly brace for the 'Test' stage
+
+    stage('Deploy') {
+        steps {
+            sh 'forever start src/index.js'
         }
     }
 }
