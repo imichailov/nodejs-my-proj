@@ -33,6 +33,12 @@ pipeline {
             steps {
                 sh 'npm test' //This is for testing the nodejs modules
             }
+                    stage('Docker build and tag'){
+            steps {
+                sh 'docker build -t ivanmihaylov/mynodejsapp -f Dockerfile .'
+                sh 'docker tag ivanmihaylov/mynodejsapp ivanmihaylov/mynodejsapp:${BUILD_NUMBER}'
+            }
+        }
         }
         stage('Deploy') {
            steps {
